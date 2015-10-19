@@ -2,24 +2,28 @@ class FizzBuzz
 
 	class << self
 
-		def build number
-			is_fizzbuzz_number?(number)
+		def build fizzbuzznumber
+			is_fizzbuzz_number?(fizzbuzznumber)
 		end
 
     private
 
-    def is_fizzbuzz_number? number
-    	divisors = number
-    	numfizznumbuzz = []
-    	while divisors >= 2
+    def is_fizzbuzz_number? fizzbuzznumber
+    	numbuzznumfizz = looking_divisors(fizzbuzznumber)
+    	raise "#{fizzbuzznumber} is not a FizzBuzz number" if numbuzznumfizz.count != 2
+    end 
+
+    def looking_divisors fizzbuzznumber
+    	fizzbuzznumbers = []
+    	divisors = fizzbuzznumber
+    	while divisors > 2
     		divisors -= 1
-    		if number % divisors == 0
-    			numfizznumbuzz << divisors
+    		if fizzbuzznumber % divisors == 0
+    			fizzbuzznumbers << divisors
     		end
     	end
-    	return true if numfizznumbuzz.count == 2
-    	return false if numfizznumbuzz.count != 2
-    end 
+    	return fizzbuzznumbers
+    end
 
 	end
 

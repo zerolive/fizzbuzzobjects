@@ -3,26 +3,31 @@ class FizzBuzz
 	class << self
 
 		def build fizzbuzznumber
-			is_fizzbuzz_number?(fizzbuzznumber)
+			raise "#{fizzbuzznumber} is not a FizzBuzz number" if is_fizzbuzz_number?(fizzbuzznumber).count != 2
 		end
+
+
 
     private
 
     def is_fizzbuzz_number? fizzbuzznumber
-    	numbuzznumfizz = looking_divisors(fizzbuzznumber)
-    	raise "#{fizzbuzznumber} is not a FizzBuzz number" if numbuzznumfizz.count != 2
+    	@buzznumfizznum = []
+    	looking_quantity_divisors(fizzbuzznumber)
+    	return @buzznumfizznum
     end 
 
-    def looking_divisors fizzbuzznumber
-    	fizzbuzznumbers = []
-    	divisors = fizzbuzznumber
-    	while divisors > 2
-    		divisors -= 1
-    		if fizzbuzznumber % divisors == 0
-    			fizzbuzznumbers << divisors
-    		end
+    def looking_quantity_divisors fizzbuzznumber
+    	@divisors = fizzbuzznumber
+    	while @divisors > 2
+    		@divisors -= 1
+    		adding_divisors(fizzbuzznumber)
     	end
-    	return fizzbuzznumbers
+    end
+
+    def adding_divisors fizzbuzznumber
+    		if fizzbuzznumber % @divisors == 0
+    			@buzznumfizznum << @divisors
+    		end
     end
 
 	end

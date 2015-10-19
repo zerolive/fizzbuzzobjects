@@ -1,3 +1,3 @@
-class NameApp
+class FizzBuzz
 
 end

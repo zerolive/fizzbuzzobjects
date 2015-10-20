@@ -4,9 +4,7 @@ class FizzBuzz
 
     def build fizzbuzznumber, number=nil
       raise "#{fizzbuzznumber} is not a FizzBuzz number" if is_fizzbuzz_number?(fizzbuzznumber).count != 2
-      if !number.nil?
-        return create_return_string(fizzbuzznumber, number)
-      end
+      return create_return_string(fizzbuzznumber, number) if !number.nil?
     end
 
     private
@@ -18,24 +16,23 @@ class FizzBuzz
     end 
 
     def looking_quantity_divisors fizzbuzznumber
-      @divisors = fizzbuzznumber
-      while @divisors > 2
-        @divisors -= 1
-        adding_divisors(fizzbuzznumber)
+      divisors = fizzbuzznumber
+      while divisors > 2
+        divisors -= 1
+        adding_divisors(fizzbuzznumber, divisors)
       end
     end
 
-    def adding_divisors fizzbuzznumber
-        if (fizzbuzznumber % @divisors).zero?
-          @buzznumfizznum << @divisors
+    def adding_divisors fizzbuzznumber , divisor
+        if (fizzbuzznumber % divisor).zero?
+          @buzznumfizznum << divisor
         end
     end
 
     def create_return_string fizzbuzznumber, number 
-        textreturn = ""
-        textreturn << NumberFizz.build(fizzbuzznumber, number)
-        textreturn << NumberBuzz.build(fizzbuzznumber, number)
-        textreturn = "#{number} is a number" << " #{textreturn}"
+        textreturn = "#{number} is a number " #No se que hacer con el espacio del final :(
+        textreturn << NumberFizz.build(fizzbuzznumber, number).to_s
+        textreturn << NumberBuzz.build(fizzbuzznumber, number).to_s
         return textreturn
     end
 
@@ -53,40 +50,18 @@ end
 
 class NumberFizz < FizzBuzz
 
-  class << self
-
-    def build fizzbuzznumber, number
-      numfizz = fizznumber(fizzbuzznumber)
-      if (number % numfizz).zero?
-        return "Fizz"
-      else
-        return ""
-      end
-    end
-
-    private
-
+  def self.build fizzbuzznumber, number
+    numfizz = fizznumber(fizzbuzznumber)
+    return "Fizz" if (number % numfizz).zero?
   end
 
 end
 
 class NumberBuzz < FizzBuzz
 
-  class << self
-
-    def build fizzbuzznumber, number
-      numbuzz = buzznumber(fizzbuzznumber)
-      if (number % numbuzz).zero?
-        return "Buzz" 
-      else
-        return ""
-      end
-    end
-
-    private
-
+  def self.build fizzbuzznumber, number
+    numbuzz = buzznumber(fizzbuzznumber)
+    return "Buzz" if (number % numbuzz).zero?
   end
 
 end
-
-#FizzBuzz.build(15, 20)

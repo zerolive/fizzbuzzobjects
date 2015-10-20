@@ -2,10 +2,10 @@ class FizzBuzz
 
   class << self
 
-    def build fizzbuzznumber, cap=nil
+    def build fizzbuzznumber, number=nil
       raise "#{fizzbuzznumber} is not a FizzBuzz number" if is_fizzbuzz_number?(fizzbuzznumber).count != 2
-      if !cap.nil?
-        return create_return_string(fizzbuzznumber, cap)
+      if !number.nil?
+        return create_return_string(fizzbuzznumber, number)
       end
     end
 
@@ -31,13 +31,22 @@ class FizzBuzz
         end
     end
 
-    def create_return_string fizzbuzznumber, cap 
-        textreturn = NumberFizzBuzz.build(fizzbuzznumber, cap) if textreturn.nil?
-        textreturn = NumberFizz.build(fizzbuzznumber, cap) if textreturn.nil?
-        textreturn = NumberBuzz.build(fizzbuzznumber, cap) if textreturn.nil?
-        textreturn = "#{cap} is just a number" if textreturn.nil?
+    def create_return_string fizzbuzznumber, number 
+        textreturn = ""
+        textreturn << NumberFizz.build(fizzbuzznumber, number)
+        textreturn << NumberBuzz.build(fizzbuzznumber, number)
+        textreturn = "#{number} is a number" << " #{textreturn}"
         return textreturn
     end
+
+    def buzznumber fizzbuzznumber
+      is_fizzbuzz_number?(fizzbuzznumber).first
+    end
+
+    def fizznumber fizzbuzznumber
+      is_fizzbuzz_number?(fizzbuzznumber).last
+    end
+
   end
 
 end
@@ -46,9 +55,13 @@ class NumberFizz < FizzBuzz
 
   class << self
 
-    def build fizzbuzznumber, cap
-      numfizz = is_fizzbuzz_number?(fizzbuzznumber).last
-      "#{cap} is a Fizz number" if (cap % numfizz).zero?
+    def build fizzbuzznumber, number
+      numfizz = fizznumber(fizzbuzznumber)
+      if (number % numfizz).zero?
+        return "Fizz"
+      else
+        return ""
+      end
     end
 
     private
@@ -61,25 +74,13 @@ class NumberBuzz < FizzBuzz
 
   class << self
 
-    def build fizzbuzznumber, cap
-      numbuzz = is_fizzbuzz_number?(fizzbuzznumber).first
-      "#{cap} is a Buzz number" if (cap % numbuzz).zero?
-    end
-
-    private
-
-  end
-
-end
-
-class NumberFizzBuzz < FizzBuzz
-
-  class << self
-
-    def build fizzbuzznumber, cap
-      numbuzz = is_fizzbuzz_number?(fizzbuzznumber).first
-      numfizz = is_fizzbuzz_number?(fizzbuzznumber).last
-      return "#{cap} is a FizzBuzz number" if (cap % numbuzz).zero? && (cap % numfizz).zero?
+    def build fizzbuzznumber, number
+      numbuzz = buzznumber(fizzbuzznumber)
+      if (number % numbuzz).zero?
+        return "Buzz" 
+      else
+        return ""
+      end
     end
 
     private
